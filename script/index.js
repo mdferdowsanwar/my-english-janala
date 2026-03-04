@@ -1,3 +1,4 @@
+// Re-usable function start
 const createElements = (arr) => {
     const htmlElements = arr.map(el => `<span class="btn btn-outline btn-primary">${el}</span>`);
     return htmlElements.join(" ");
@@ -12,6 +13,14 @@ const manageSpinner = status => {
         document.getElementById("spinner").classList.add("hidden");
     }
 }
+
+const pronounceWord = word => {
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "en-En";
+    window.speechSynthesis.speak(utterance);
+}
+// Re-usable function end
+
 
 const loadLessons = () => {
     const url = "https://openapi.programming-hero.com/api/levels/all";
@@ -98,7 +107,7 @@ const displayLevelWord = words => {
                     <button onclick="loadWordDetail(${word.id})" href="" class="bg-[#1A91FF20] hover:bg-[#1A91FF80] py-2 px-3 rounded-sm">
                         <i class="fa-solid fa-circle-info"></i>
                     </button>
-                    <button href="" class="bg-[#1A91FF20] hover:bg-[#1A91FF80] py-2 px-3 rounded-sm">
+                    <button onclick="pronounceWord('${word.word}');" class="bg-[#1A91FF20] hover:bg-[#1A91FF80] py-2 px-3 rounded-sm">
                         <i class="fa-solid fa-volume-high"></i>
                     </button>
                 </div>
