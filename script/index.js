@@ -21,7 +21,7 @@ const pronounceWord = word => {
 }
 // Re-usable function end
 
-
+// Load Lesson
 const loadLessons = () => {
     const url = "https://openapi.programming-hero.com/api/levels/all";
     fetch(url) // Return promise of response
@@ -29,11 +29,12 @@ const loadLessons = () => {
         .then(json_data => displayLesson(json_data.data))
 }
 
+// Remove and Active Functionality
 const removeActive =()=> {
     const lessonButtons = document.querySelectorAll(".lesson-btn");
     lessonButtons.forEach(btn => btn.classList.remove("active"));
 }
-
+// Load Words
 const loadLevelWord = id => {
     manageSpinner(true);
     const url = `https://openapi.programming-hero.com/api/level/${id}`;
@@ -48,12 +49,15 @@ const loadLevelWord = id => {
         });
 }
 
+// Load Words Details
 const loadWordDetail = async id =>{
     const url = await `https://openapi.programming-hero.com/api/word/${id}`;
     const response = await fetch(url);
     const details = await response.json();
     displaywordDetail(details.data);
 }
+
+// Display Word Details
 const displaywordDetail = word => {
     const detailModal = document.getElementById("details-container");
     detailModal.innerHTML = `
@@ -78,6 +82,7 @@ const displaywordDetail = word => {
     document.getElementById("word_modal").showModal();
 }
 
+// Display Words
 const displayLevelWord = words => {
     const wordContainer = document.getElementById("word-container");
     wordContainer.innerHTML = "";
@@ -118,6 +123,7 @@ const displayLevelWord = words => {
     manageSpinner(false);
 }
 
+// Display Lesson
 const displayLesson = (lessons) => {
     // 1. Get the container & empty
     const levelContainer = document.getElementById("level-container");
@@ -136,8 +142,10 @@ const displayLesson = (lessons) => {
         levelContainer.append(btnDiv);
     });
 }
+// Main Function
 loadLessons();
 
+// Search Functionality
 document.getElementById("btn-search").addEventListener("click", () => {
     removeActive();
     const input = document.getElementById("input-search");
